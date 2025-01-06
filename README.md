@@ -2,7 +2,7 @@
 [![Version](https://img.shields.io/github/v/release/MrAfitol/BetterEscape?sort=semver&style=flat-square&color=blue&label=Version)](https://github.com/MrAfitol/BetterEscape/releases)
 [![Downloads](https://img.shields.io/github/downloads/MrAfitol/BetterEscape/total?style=flat-square&color=yellow&label=Downloads)](https://github.com/MrAfitol/BetterEscape/releases)
 
-A plugin that allows you to escape for the role of MTF and Chaos when they are handcuffed, and also adds escape for the Facility Guard.
+A plugin that allows the player to escape for the role of MTF and Chaos when he is handcuffed, and also adds an escape for Facility Guard.
 
 ## How to download?
    - *1. Find the SCP SL server config folder*
