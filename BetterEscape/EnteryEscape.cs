@@ -1,5 +1,5 @@
-﻿using PlayerRoles;
-using PluginAPI.Core;
+﻿using LabApi.Features.Wrappers;
+using PlayerRoles;
 using UnityEngine;
 
 namespace BetterEscape
@@ -9,28 +9,19 @@ namespace BetterEscape
         public void OnTriggerEnter(Collider col)
         {
             Player ply = Player.Get(col.gameObject);
-
             if (ply == null)
                 return;
 
-            if (ply.Role.GetTeam() == Team.ChaosInsurgency)
+            if (ply.IsDisarmed)
             {
-                if (!ply.IsDisarmed) return;
-
-                ply.SetRole(RoleTypeId.NtfPrivate, RoleChangeReason.Escaped);
+                Team team = ply.Role.GetTeam();
+                if (team == Team.ChaosInsurgency)
+                    ply.SetRole(RoleTypeId.NtfPrivate, RoleChangeReason.Escaped);
+                else if (team == Team.FoundationForces)
+                    ply.SetRole(RoleTypeId.ChaosConscript, RoleChangeReason.Escaped);
             }
-            else if (ply.Role.GetTeam() == Team.FoundationForces)
-            {
-                if (!ply.IsDisarmed && ply.Role == RoleTypeId.FacilityGuard && Plugin.Config.IsFacilityGuardCanEscape)
-                {
-                    ply.SetRole(Plugin.Config.FacilityGuardEscapeRole, RoleChangeReason.Escaped);
-                    return;
-                }
-                if (!ply.IsDisarmed) return;
-
-                ply.SetRole(RoleTypeId.ChaosConscript, RoleChangeReason.Escaped);
-            }
-            else return;
+            else if (ply.Role == RoleTypeId.FacilityGuard && Plugin.Instance.Config.IsFacilityGuardCanEscape)
+                ply.SetRole(Plugin.Instance.Config.FacilityGuardEscapeRole, RoleChangeReason.Escaped);
         }
     }
 }

@@ -1,27 +1,41 @@
-﻿using MapGeneration;
-using PluginAPI.Core.Attributes;
-using PluginAPI.Events;
+﻿using LabApi.Events.Arguments.ServerEvents;
+using LabApi.Events.Handlers;
+using LabApi.Features;
+using LabApi.Loader.Features.Plugins;
+using MapGeneration;
+using System;
 using System.Linq;
 using UnityEngine;
 
 namespace BetterEscape
 {
-    public class Plugin
+    public class Plugin : Plugin<Config>
     {
         public static Plugin Instance { get; private set; }
 
-        [PluginConfig]
-        public static Config Config;
+        public override string Name => "BetterEscape";
 
-        [PluginEntryPoint("BetterEscape", "1.0.0", "Just BetterEscape.", "MrAfitol")]
-        public void LoadPlugin()
+        public override string Description => "Allows handcuffed MTF/Chaos to escape and adds an escape option for Facility Guard.";
+
+        public override string Author => "MrAfitol";
+
+        public override Version Version => new Version(1, 1, 0);
+
+        public override Version RequiredApiVersion => LabApiProperties.CurrentVersion;
+
+        public override void Enable()
         {
             Instance = this;
-            EventManager.RegisterEvents(Instance);
+            ServerEvents.RoundStarting += OnRoundStart;
         }
 
-        [PluginEvent]
-        public void OnRoundStart(RoundStartEvent ev)
+        public override void Disable()
+        {
+            ServerEvents.RoundStarting -= OnRoundStart;
+            Instance = null;
+        }
+
+        public void OnRoundStart(RoundStartingEventArgs ev)
         {
             RoomIdentifier Outside = RoomIdentifier.AllRoomIdentifiers.First(x => x.Name == RoomName.Outside);
             GameObject gameObject = new GameObject("Escape-1");

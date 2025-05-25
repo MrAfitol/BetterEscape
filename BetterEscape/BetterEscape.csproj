@@ -40,11 +40,11 @@
     <Reference Include="CommandSystem.Core">
       <HintPath>$(SCP_Dependencies)\CommandSystem.Core.dll</HintPath>
     </Reference>
+    <Reference Include="LabApi, Version=1.0.2.0, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>..\packages\Northwood.LabAPI.1.0.2\lib\net48\LabApi.dll</HintPath>
+    </Reference>
     <Reference Include="Mirror">
       <HintPath>$(SCP_Dependencies)\Mirror.dll</HintPath>
-    </Reference>
-    <Reference Include="PluginAPI, Version=13.1.2.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\packages\Northwood.PluginAPI.13.1.2\lib\net48\PluginAPI.dll</HintPath>
     </Reference>
     <Reference Include="Pooling">
       <HintPath>$(SCP_Dependencies)\Pooling.dll</HintPath>
